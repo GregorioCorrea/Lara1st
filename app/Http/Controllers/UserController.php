@@ -22,12 +22,12 @@ class UserController extends Controller
             'password' => $request->password
         ])
 
-        return back();
+        return back()->withInput();
 
     }
     public function destroy(User $user)
     {
         $user->delete();
-        return back();
+        return back()->withInput();
     }
 }
