@@ -14,6 +14,7 @@ class UserController extends Controller
 
         return view('users.index',['users' => $users]);
     }
+    
     public function store(Request $request)
     {
         User::create([
@@ -25,6 +26,7 @@ class UserController extends Controller
         return back()->withInput();
 
     }
+    
     public function destroy(User $user)
     {
         $user->delete();
