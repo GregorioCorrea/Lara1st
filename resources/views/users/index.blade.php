@@ -4,7 +4,7 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <title>Laravel</title>
+        <title>Ejemplo Gregorio</title>
 
         <!-- CSS only -->
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
@@ -24,10 +24,39 @@
         </style>
     </head>
     <body>
-        <div class="container">
+        <div class='container'>
             <div class='row'>
-                <div class="col-sm-8 mx-auto">
-                    <table class="tabla">
+                <div class='col-sm-8 mx-auto'>
+                    <div class='card border-0 shadow'>
+						<div class='card-body'>
+							@if($errors->any())
+							<div class="alert">
+								@foreach($errors->all() as $error)
+								- {{ $error }} <br />
+								@endforeach
+							</div>
+							@endif
+						</div>
+							<form action="{{ route('users.store') }}" method="POST">
+								<div class='form-row'>
+									<div class='col-sm-7'>
+										<input type="text" name='pete' class="form-control" placeholder="Nombre">
+									</div>
+									<div class='col-sm-7'>
+										<input type="text" name="email" class="form-control" placeholder="Correo">
+									</div>
+									<div class='col-sm-7'>
+										<input type="password" name="password" class="form-control" placeholder="Contraseña">
+									</div>
+									<div class='col-auto'>
+										@csrf
+										<button type="submit" name="name" class="btn btn-primary">Agregar</button>
+									</div>								
+								</div>
+							</form>
+						</div>
+                    </div>
+                    <table class='table'>
                         <thead>
                             <tr>
                                 <td>Id</td>
@@ -42,7 +71,17 @@
                                 <td>{{ $user->id }}</td>
                                 <td>{{ $user->name }}</td>
                                 <td>{{ $user->email }}</td>
-                                <td>eliminar</td>
+                                <td><form action="{{ route('users.destroy', $user->id) }}" method="POST">
+										@method('DELETE')
+										@csrf
+										<button id="delete" name="delete" type="submit" 
+											class="btn btn-danger" 
+											data-toggle="tooltip" data-placement="top" title="Eliminar usuario"
+											onclick="return confirm('Desea eliminar...?')">
+											<i class="fas fa-trash-alt"></i>
+										</button>
+									</form>
+                                </td>
                                 </tr>   
                             @endforeach
                         </tbody>    
