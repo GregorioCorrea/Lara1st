@@ -21,15 +21,15 @@ class UserController extends Controller
             'name' => $request->name,
             'email' => $request->email,
             'password' => $request->password
-        ])
+        ]);
 
-        return back()->withInput();
+        return back();
 
     }
     
     public function destroy(User $user)
     {
         $user->delete();
-        return back()->withInput();
+        return back();
     }
 }
